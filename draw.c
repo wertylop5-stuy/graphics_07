@@ -161,3 +161,32 @@ void draw_line(Frame grid, struct Pixel *p, int x1, int y1, int x2, int y2) {
 }
 
 
+void draw_polygons(Frame grid, struct Matrix *m, struct Pixel *p) {
+	
+	push_edge(m,
+		res->m[0][x],
+		res->m[1][x],
+		res->m[2][x],
+		res->m[0][x+1],
+		res->m[1][x+1],
+		res->m[2][x+1]
+	);
+	push_edge(m,
+		res->m[0][x+1],
+		res->m[1][x+1],
+		res->m[2][x+1],
+		res->m[0][x+step_big],
+		res->m[1][x+step_big],
+		res->m[2][x+step_big]
+	);
+	push_edge(m,
+		res->m[0][x+step_big],
+		res->m[1][x],
+		res->m[2][x],
+		res->m[0][x+1],
+		res->m[1][x+1],
+		res->m[2][x+1]
+	);
+}
+
+

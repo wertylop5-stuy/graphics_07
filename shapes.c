@@ -200,6 +200,7 @@ void add_cube(struct Matrix *m, float x, float y, float z,
 
 void add_sphere(struct Matrix *m, float cx, float cy, float cz, float r, int step) {
 	struct Matrix *res = sphere_points(cx, cy, cz, r, step);
+	//struct Matrix *res = sphere_points(cx, cy, cz, r, step);
 	int x;
 	for (x = 0; x < res->back - 1; x++) {
 		push_edge(m,
@@ -252,32 +253,21 @@ struct Matrix* sphere_points(float cx, float cy, float cz, float r, int step) {
 
 void add_torus(struct Matrix *m, float cx, float cy, float cz,
 		float r1, float r2, int step) {
-	struct Matrix *res = torus_points(cx, cy, cz, r1, r2, step);
+	//struct Matrix *res = torus_points(cx, cy, cz, r1, r2, step);
+	struct Matrix *res = torus_points(cx, cy, cz, r1, r2, 60);
+	int step_small = 360/60;
+	int step_big = 360/60;
 	int x;
 	for (x = 0; x < res->back - 1; x++) {
-		push_edge(m,
-			res->m[0][x],
+		push_polygon(res->m[0][x],
 			res->m[1][x],
 			res->m[2][x],
-			res->m[0][x]+1,
-			res->m[1][x],
-			res->m[2][x]
-		);
-		push_edge(m,
-			res->m[0][x],
-			res->m[1][x],
-			res->m[2][x],
-			res->m[0][x],
-			res->m[1][x]+1,
-			res->m[2][x]
-		);
-		push_edge(m,
-			res->m[0][x],
-			res->m[1][x],
-			res->m[2][x],
-			res->m[0][x],
-			res->m[1][x],
-			res->m[2][x]+1
+			res->m[0][x+1],
+			res->m[1][x+1],
+			res->m[2][x+1],
+			res->m[0][x+step_big],
+			res->m[1][x+step_big],
+			res->m[2][x+step_big]
 		);
 	}
 	free_matrix(res);
@@ -300,5 +290,8 @@ struct Matrix* torus_points(float cx, float cy, float cz,
 	}
 	return m;
 }
+
+
+
 
 

@@ -42,4 +42,10 @@ void push_point(struct Matrix *m, float x, float y, float z);
 void push_edge(struct Matrix *m, float x1, float y1,
 		float z1, float x2, float y2, float z2);
 
+void push_polygon(struct Matrix *m,
+	float x0, float y0, float z0,
+	float x1, float y1, float z1,
+	float x2, float y2, float z2
+);
+
 #endif
