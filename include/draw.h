@@ -31,7 +31,7 @@ void draw_lines(Frame grid, struct Matrix *m, struct Pixel *p);
 
 void pixel_color(struct Pixel *p, unsigned char r, unsigned char g, unsigned char b);
 
-void draw_polygons(Frame grid, struct Matrix *m, struct Pixel *p);
+void draw_polygons(Frame f, struct Matrix *m, struct Pixel *p);
 
 #endif
 

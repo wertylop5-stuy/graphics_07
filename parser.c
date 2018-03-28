@@ -45,7 +45,8 @@ void parse_instructions(char *filename, struct Matrix *t,
 			memset(f, 0, sizeof(Frame));
 			struct Pixel p;
 			pixel_color(&p, 255, 105, 180);
-			draw_lines(f, e, &p);
+			//draw_lines(f, e, &p);
+			draw_polygons(f, e, &p);
 			display(f);
 		}
 		else if (!strncmp(line, "save", strlen(line)-1)) {
