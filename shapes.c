@@ -316,33 +316,32 @@ int in_bounds(int val, int max, int min) {
 
 void add_torus(struct Matrix *m, float cx, float cy, float cz,
 		float r1, float r2, int step) {
-	//struct Matrix *res = torus_points(cx, cy, cz, r1, r2, step);
-	struct Matrix *res = torus_points(cx, cy, cz, r1, r2, 40);
-	int step_big = 360/40;
+	struct Matrix *res = torus_points(cx, cy, cz, r1, r2, step);
+	int step_big = 360/step;
 	int x;
 	
 	for (x = 0; x < res->back; x++) {
 		push_polygon(m,
-			res->m[0][x],
-			res->m[1][x],
-			res->m[2][x],
-			res->m[0][(x+step_big)%res->back],
-			res->m[1][(x+step_big)%res->back],
-			res->m[2][(x+step_big)%res->back],
-			res->m[0][(x+step_big+1)%res->back],
-			res->m[1][(x+step_big+1)%res->back],
-			res->m[2][(x+step_big+1)%res->back]
-		);
-		push_polygon(m,
-			res->m[0][x],
-			res->m[1][x],
-			res->m[2][x],
 			res->m[0][(x+step_big+1)%res->back],
 			res->m[1][(x+step_big+1)%res->back],
 			res->m[2][(x+step_big+1)%res->back],
+			res->m[0][(x+step_big)%res->back],
+			res->m[1][(x+step_big)%res->back],
+			res->m[2][(x+step_big)%res->back],
+			res->m[0][x],
+			res->m[1][x],
+			res->m[2][x]
+		);
+		push_polygon(m,
 			res->m[0][(x+1)%res->back],
 			res->m[1][(x+1)%res->back],
-			res->m[2][(x+1)%res->back]
+			res->m[2][(x+1)%res->back],
+			res->m[0][(x+step_big+1)%res->back],
+			res->m[1][(x+step_big+1)%res->back],
+			res->m[2][(x+step_big+1)%res->back],
+			res->m[0][x],
+			res->m[1][x],
+			res->m[2][x]
 		);
 	}
 	free_matrix(res);
@@ -365,8 +364,5 @@ struct Matrix* torus_points(float cx, float cy, float cz,
 	}
 	return m;
 }
-
-
-
 
 
