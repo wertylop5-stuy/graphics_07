@@ -314,113 +314,36 @@ int in_bounds(int val, int max, int min) {
 	return val;
 }
 
-//p1, p2, p3 are indices
-//counter clockwise starting at p1
-//norm_out is an array of size three
-void find_norm(struct Matrix *m, int p1, int p2, int p3,
-		float *norm_out) {
-	float tempA[] = {
-		m->m[0][p2] - m->m[0][p1],
-		m->m[1][p2] - m->m[1][p1],
-		m->m[2][p2] - m->m[2][p1]
-	};
-	
-	float tempB[] = {
-		m->m[0][p3] - m->m[0][p1],
-		m->m[1][p3] - m->m[1][p1],
-		m->m[2][p3] - m->m[2][p1]
-	};
-	
-	norm_out[0] = tempA[1]*tempB[2] - tempA[2]*tempA[1];
-	norm_out[1] = tempA[2]*tempB[0] - tempA[0]*tempB[2];
-	norm_out[2] = tempA[0]*tempB[1] - tempA[1]*tempB[0];
-}
-
 void add_torus(struct Matrix *m, float cx, float cy, float cz,
 		float r1, float r2, int step) {
 	//struct Matrix *res = torus_points(cx, cy, cz, r1, r2, step);
 	struct Matrix *res = torus_points(cx, cy, cz, r1, r2, 40);
-	//int step_small = 360/40;
 	int step_big = 360/40;
 	int x;
 	
-	/*
-	int y;
-	for (y = 0; y < step_big; y++) {
-	for (x = 0; x < step_small; x++) {
-	//for (x = 0; x < res->back; x++) {
-		push_polygon(m,
-			res->m[0][y*step_big+x],
-			res->m[1][y*step_big+x],
-			res->m[2][y*step_big+x],
-			res->m[0][(y*step_big+x+step_big)],
-			res->m[1][(y*step_big+x+step_big)],
-			res->m[2][(y*step_big+x+step_big)],
-			res->m[0][(y*step_big+x+1)],
-			res->m[1][(y*step_big+x+1)],
-			res->m[2][(y*step_big+x+1)]
-		);
-		push_polygon(m,
-			res->m[0][(y*step_big+x+step_big)],
-			res->m[1][(y*step_big+x+step_big)],
-			res->m[2][(y*step_big+x+step_big)],
-			res->m[0][(y*step_big+x+step_big+1)],
-			res->m[1][(y*step_big+x+step_big+1)],
-			res->m[2][(y*step_big+x+step_big+1)],
-			res->m[0][(y*step_big+x+1)],
-			res->m[1][(y*step_big+x+1)],
-			res->m[2][(y*step_big+x+1)]
-		);
-	}
-	}
-	*/
 	for (x = 0; x < res->back; x++) {
-		/*
-		float tempA[] = {
-			res->m[0][(x+step_big)%res->back] - res->m[0][x],
-			res->m[1][(x+step_big)%res->back] - res->m[1][x],
-			res->m[2][(x+step_big)%res->back] - res->m[2][x]
-		};
-		
-		float tempB[] = {
-			res->m[0][(x+step_big+1)%res->back] - res->m[0][x],
-			res->m[1][(x+step_big+1)%res->back] - res->m[1][x],
-			res->m[2][(x+step_big+1)%res->back] - res->m[2][x]
-		};
-		*/
-		
-		float norm[3];
-		find_norm(res, x, (x+step_big)%res->back, (x+step_big+1)%res->back, norm);
-		
-		if (norm[2] > 0) {
-			push_polygon(m,
-				res->m[0][x],
-				res->m[1][x],
-				res->m[2][x],
-				res->m[0][(x+step_big)%res->back],
-				res->m[1][(x+step_big)%res->back],
-				res->m[2][(x+step_big)%res->back],
-				res->m[0][(step_big+x+1)%res->back],
-				res->m[1][(step_big+x+1)%res->back],
-				res->m[2][(step_big+x+1)%res->back]
-			);
-		}
-		
-		find_norm(res, x, (x+step_big+1)%res->back, (x+1)%res->back, norm);
-		
-		if (norm[2] > 0) {
-			push_polygon(m,
-				res->m[0][x],
-				res->m[1][x],
-				res->m[2][x],
-				res->m[0][(x+step_big+1)%res->back],
-				res->m[1][(x+step_big+1)%res->back],
-				res->m[2][(x+step_big+1)%res->back],
-				res->m[0][(x+1)%res->back],
-				res->m[1][(x+1)%res->back],
-				res->m[2][(x+1)%res->back]
-			);
-		}
+		push_polygon(m,
+			res->m[0][x],
+			res->m[1][x],
+			res->m[2][x],
+			res->m[0][(x+step_big)%res->back],
+			res->m[1][(x+step_big)%res->back],
+			res->m[2][(x+step_big)%res->back],
+			res->m[0][(x+step_big+1)%res->back],
+			res->m[1][(x+step_big+1)%res->back],
+			res->m[2][(x+step_big+1)%res->back]
+		);
+		push_polygon(m,
+			res->m[0][x],
+			res->m[1][x],
+			res->m[2][x],
+			res->m[0][(x+step_big+1)%res->back],
+			res->m[1][(x+step_big+1)%res->back],
+			res->m[2][(x+step_big+1)%res->back],
+			res->m[0][(x+1)%res->back],
+			res->m[1][(x+1)%res->back],
+			res->m[2][(x+1)%res->back]
+		);
 	}
 	free_matrix(res);
 }
