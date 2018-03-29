@@ -256,8 +256,8 @@ void add_cube(struct Matrix *m, float x, float y, float z,
 }
 
 void add_sphere(struct Matrix *m, float cx, float cy, float cz, float r, int step) {
-	struct Matrix *res = sphere_points(cx, cy, cz, r, step);
 	//struct Matrix *res = sphere_points(cx, cy, cz, r, step);
+	struct Matrix *res = sphere_points(cx, cy, cz, r, step);
 	int x;
 	for (x = 0; x < res->back - 1; x++) {
 		push_edge(m,
