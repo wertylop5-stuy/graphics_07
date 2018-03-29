@@ -352,6 +352,18 @@ void add_torus(struct Matrix *m, float cx, float cy, float cz,
 	}
 	*/
 	for (x = 0; x < res->back; x++) {
+		float tempA = [
+			res->m[0][(x+step_big)%res->back] - res->m[0][x],
+			res->m[1][(x+step_big)%res->back] - res->m[1][x],
+			res->m[2][(x+step_big)%res->back] - res->m[2][x]
+		];
+		
+		float tempB = [
+			res->m[0][(x+step_big+1)%res->back] - res->m[0][x],
+			res->m[1][(x+step_big+1)%res->back] - res->m[1][x],
+			res->m[2][(x+step_big+1)%res->back] - res->m[2][x]
+		];
+		
 		push_polygon(m,
 			res->m[0][x],
 			res->m[1][x],
