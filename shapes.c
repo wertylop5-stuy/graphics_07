@@ -364,28 +364,60 @@ void add_torus(struct Matrix *m, float cx, float cy, float cz,
 			res->m[2][(x+step_big+1)%res->back] - res->m[2][x]
 		];
 		
-		push_polygon(m,
-			res->m[0][x],
-			res->m[1][x],
-			res->m[2][x],
-			res->m[0][(x+step_big)%res->back],
-			res->m[1][(x+step_big)%res->back],
-			res->m[2][(x+step_big)%res->back],
-			res->m[0][(step_big+x+1)%res->back],
-			res->m[1][(step_big+x+1)%res->back],
-			res->m[2][(step_big+x+1)%res->back]
-		);
-		push_polygon(m,
-			res->m[0][x],
-			res->m[1][x],
-			res->m[2][x],
-			res->m[0][(x+step_big+1)%res->back],
-			res->m[1][(x+step_big+1)%res->back],
-			res->m[2][(x+step_big+1)%res->back],
-			res->m[0][(x+1)%res->back],
-			res->m[1][(x+1)%res->back],
-			res->m[2][(x+1)%res->back]
-		);
+		float norm = [
+			tempA[1]*tempB[2] - tempA[2]*tempA[1],
+			tempA[2]*tempB[0] - tempA[0]*tempB[2],
+			tempA[0]*tempB[1] - tempA[1]*tempB[0]
+		];
+		
+		if (norm[2] > 0) {
+			push_polygon(m,
+				res->m[0][x],
+				res->m[1][x],
+				res->m[2][x],
+				res->m[0][(x+step_big)%res->back],
+				res->m[1][(x+step_big)%res->back],
+				res->m[2][(x+step_big)%res->back],
+				res->m[0][(step_big+x+1)%res->back],
+				res->m[1][(step_big+x+1)%res->back],
+				res->m[2][(step_big+x+1)%res->back]
+			);
+		}
+		
+		tempA[0] = [
+			res->m[0][(x+step_big)%res->back] - res->m[0][x],
+
+			res->m[2][(x+step_big)%res->back] - res->m[2][x]
+		];
+		
+		tempA[0] = res->m[1][(x+step_big)%res->back] - res->m[1][x],
+		tempA[0] = ;
+		
+		tempB = [
+			res->m[0][(x+step_big+1)%res->back] - res->m[0][x],
+			res->m[1][(x+step_big+1)%res->back] - res->m[1][x],
+			res->m[2][(x+step_big+1)%res->back] - res->m[2][x]
+		];
+		
+		norm = [
+			tempA[1]*tempB[2] - tempA[2]*tempA[1],
+			tempA[2]*tempB[0] - tempA[0]*tempB[2],
+			tempA[0]*tempB[1] - tempA[1]*tempB[0]
+		];
+		
+		if (norm[2] > 0) {
+			push_polygon(m,
+				res->m[0][x],
+				res->m[1][x],
+				res->m[2][x],
+				res->m[0][(x+step_big+1)%res->back],
+				res->m[1][(x+step_big+1)%res->back],
+				res->m[2][(x+step_big+1)%res->back],
+				res->m[0][(x+1)%res->back],
+				res->m[1][(x+1)%res->back],
+				res->m[2][(x+1)%res->back]
+			);
+		}
 	}
 	free_matrix(res);
 }
