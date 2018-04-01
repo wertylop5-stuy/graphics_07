@@ -188,7 +188,7 @@ void draw_polygons(Frame f, struct Matrix *m, struct Pixel *p) {
 		find_norm(m, x, x+1, x+2, norm);
 		//backface culling: don't draw if polygon
 		//not in sight
-		//if (norm[2] > 0) {
+		if (norm[2] > 0) {
 			draw_line(f, p,
 				m->m[0][x],
 				m->m[1][x],
@@ -207,7 +207,7 @@ void draw_polygons(Frame f, struct Matrix *m, struct Pixel *p) {
 				m->m[0][x],
 				m->m[1][x]
 			);
-		//}
+		}
 	}
 }
 
