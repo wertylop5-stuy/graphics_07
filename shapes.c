@@ -309,6 +309,7 @@ void add_sphere(struct Matrix *m, float cx, float cy, float cz, float r, int ste
 				res->m[1][(x+step_small+1)%res->back],
 				res->m[2][(x+step_small+1)%res->back]
 			);
+			/*
 			push_polygon(m,
 				res->m[0][x],
 				res->m[1][x],
@@ -320,6 +321,7 @@ void add_sphere(struct Matrix *m, float cx, float cy, float cz, float r, int ste
 				res->m[1][(x+1)%res->back],
 				res->m[2][(x+1)%res->back]
 			);
+			*/
 		}
 	}
 	free_matrix(res);
